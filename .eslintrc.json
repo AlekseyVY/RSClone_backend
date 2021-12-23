@@ -2,7 +2,7 @@
   "root": true,
   "env": {
     "browser": false,
-    "commonjs": true,
+    "commonjs": false,
     "es2021": true,
     "node": true
   },
@@ -32,11 +32,3 @@
     }
   }
 }
-//   "rules": {
-//   "import/extensions": "off",
-//     "node/no-missing-require": "off",
-//     "node/no-missing-import": "off",
-//     "linebreak-style": "off",
-//     "node/no-unsupported-features/es-syntax": "off",
-//     "no-underscore-dangle": "off",
-//     "import/prefer-default-export": "off"
