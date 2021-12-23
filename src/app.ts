@@ -1,6 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-
-const express = require('express');
+import express, { Request, Response, NextFunction } from 'express';
+import userRouter from './routes/userRoute/user.router';
 
 const app = express();
 
@@ -13,5 +12,7 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
   }
   next();
 });
+
+app.use('/users', userRouter);
 
 export default app;
