@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { getAll } from './user.service';
+import getAll from './user.service';
 
 const router = require('express').Router();
 
-router.route('/test').get(async (_req: Request, res: Response, next: NextFunction) => {
+router.route('/mock').get(async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await getAll();
     if (users) {
