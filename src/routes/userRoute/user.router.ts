@@ -16,4 +16,12 @@ router.route('/mock').get(async (_req: Request, res: Response, next: NextFunctio
   }
 });
 
+router.route('/authSevice').get(async (_req: Request, res: Response, next: NextFunction) => {
+  try {
+      res.send(200).json({status: 'ok', token: 'test_token'});
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;
