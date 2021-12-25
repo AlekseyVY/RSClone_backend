@@ -1,6 +1,6 @@
-import {getMongoRepository} from 'typeorm';
+import { getMongoRepository } from 'typeorm';
 import User from '../../entity/user';
-import {IUser} from '../../model/User';
+import { IUser } from '../../model/User';
 
 export const createUser = async (user: IUser) => {
   const userRepository = getMongoRepository(User);
@@ -9,5 +9,5 @@ export const createUser = async (user: IUser) => {
 
 export const getByLogin = async (userLogin: string): Promise<User | undefined> => {
   const userRepository = getMongoRepository(User);
-  return userRepository.findOne({login: userLogin});
+  return userRepository.findOne({ login: userLogin });
 };

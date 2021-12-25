@@ -25,12 +25,10 @@
    "dependencies": {
       "@types/bcrypt": "^5.0.0",
       "@types/express": "^4.17.13",
-      "@types/jsonwebtoken": "^8.5.6",
       "bcrypt": "^5.0.1",
       "cors": "^2.8.5",
       "dotenv": "^10.0.0",
       "express": "^4.17.2",
-      "jsonwebtoken": "^8.5.1",
       "mongodb": "^3.7.3",
       "mysql": "^2.14.1",
       "nodemon": "^2.0.15",
@@ -48,8 +46,6 @@
       "eslint": "^8.5.0",
       "eslint-config-airbnb-base": "^15.0.0",
       "eslint-plugin-import": "^2.25.3",
-      "husky": "^7.0.4",
-      "ts-node": "3.3.0",
-      "typescript": "3.3.3333"
+      "husky": "^7.0.4"
    }
 }
