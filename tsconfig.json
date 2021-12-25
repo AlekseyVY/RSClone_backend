@@ -42,11 +42,11 @@
     // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`. */
 
     /* Emit */
-    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    // "declaration": true,                              /* Generate globals.d.ts files from TypeScript and JavaScript files in your project. */
     // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
     // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
      "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
-    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all globals.d.ts output. */
     // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
     // "removeComments": true,                           /* Disable emitting comments. */
     // "noEmit": true,                                   /* Disable emitting files from a compilation. */
@@ -75,7 +75,7 @@
 
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+//    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
     // "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. */
     // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
@@ -95,8 +95,8 @@
     // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
 
     /* Completeness */
-    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking globals.d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all globals.d.ts files. */
   },
   "include" : [
     "src/**/*.ts"   /* Include every ts file in source folder */
