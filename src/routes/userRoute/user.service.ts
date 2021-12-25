@@ -1,5 +1,3 @@
-import getUsers from './user.memory.repository';
-
-const getAll = async () => getUsers();
+const getAll = async () => null;
 
 export default getAll;
