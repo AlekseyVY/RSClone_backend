@@ -12,6 +12,10 @@
       "migration:generate": "npm run typeorm:win migration:generate -- -n test_migration",
       "migration:run": "npm run typeorm:win migration:run"
    },
+   "engines": {
+      "npm": ">=8.1.0",
+      "node": ">=16.13.0"
+   },
    "repository": {
       "type": "git",
       "url": "git+https://github.com/AlekseyVY/RSClone_backend.git"
