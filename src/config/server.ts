@@ -9,7 +9,7 @@ createConnection({
   logging: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  database: process.env.DB_NAME,
+  database: 'rsclonedb',
   entities: [
     User,
   ],
