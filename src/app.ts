@@ -3,8 +3,6 @@ import cors from 'cors';
 import userRouter from './routes/userRoute/user.router';
 import 'reflect-metadata';
 
-require('dotenv').config();
-
 const app = express();
 
 app.use(cors());

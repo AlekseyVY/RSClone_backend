@@ -1,5 +1,6 @@
 {
    "type": "mongodb",
+   "url": "mongodb+srv://Aleksey:qwerty12345@realmcluster.kcbzv.mongodb.net/rsclonedb?retryWrites=true&w=majority",
    "useNewUrlParser": true,
    "synchronize": true,
    "useUnifiedTopology": true,
