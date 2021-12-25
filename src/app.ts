@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import userRouter from './routes/userRoute/user.router';
 import 'reflect-metadata';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 
