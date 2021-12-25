@@ -4,7 +4,7 @@
    "description": "Backend for RSClone team project.",
    "main": "app.ts",
    "scripts": {
-      "start": "ts-node src/app.ts",
+      "start": "ts-node src/config/server.ts",
       "dev": "nodemon -x ts-node src/config/server.ts",
       "lint": "eslint --ext .js,.ts --fix src/",
       "prepare": "husky install",
