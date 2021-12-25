@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+const cors = require('cors')
 import dotenv from 'dotenv';
 import userRouter from './routes/userRoute/user.router';
 import 'reflect-metadata';
@@ -6,6 +7,7 @@ import 'reflect-metadata';
 dotenv.config();
 
 const app = express();
+app.use(cors())
 
 app.use(express.json());
 
