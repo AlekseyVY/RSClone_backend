@@ -1,9 +1,4 @@
 {
-   "type": "mongodb",
-   "useNewUrlParser": true,
-   "synchronize": true,
-   "useUnifiedTopology": true,
-   "logging": true,
    "entities": [
       "src/entity/**/*.ts"
    ],
