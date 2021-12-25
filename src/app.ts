@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import userRouter from './routes/userRoute/user.router';
 import 'reflect-metadata';
 
-
 dotenv.config();
 
 const app = express();
