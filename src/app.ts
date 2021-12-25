@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import userRouter from './routes/userRoute/user.router';
+import 'reflect-metadata';
 
-const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
