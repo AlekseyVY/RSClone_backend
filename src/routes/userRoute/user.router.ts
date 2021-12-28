@@ -1,24 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import getAll from './user.service';
 import User, { IUser } from '../../model/User';
 import { createUser, getByLogin } from './user.memory.repository';
 
 const uuid = require('uuid').v4;
 const router = require('express').Router();
-
-router.route('/mock').get(async (_req: Request, res: Response, next: NextFunction) => {
-  try {
-    const users = await getAll();
-    if (users) {
-      res.status(200).json(users);
-    } else {
-      res.status(400).json('no users found.');
-    }
-  } catch (err) {
-    next(err);
-  }
-});
 
 router.route('/authService').post(async (req: Request, res: Response, next: NextFunction) => {
   try {
