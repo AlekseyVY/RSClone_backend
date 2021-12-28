@@ -4,69 +4,68 @@ import {
 
 @Entity({ name: 'users' })
 class Character {
-  
   @ObjectIdColumn()
-  _id: ObjectID | undefined;
-  
+    id: ObjectID | undefined;
+
   @Column()
-  strength: string | undefined;
-  
+    strength: string | undefined;
+
   @Column()
-  agility: string | undefined;
-  
+    agility: string | undefined;
+
   @Column()
-  instinct: string | undefined;
-  
+    instinct: string | undefined;
+
   @Column()
-  endurance: string | undefined;
-  
+    endurance: string | undefined;
+
   @Column()
-  accuracy: string | undefined;
-  
+    accuracy: string | undefined;
+
   @Column()
-  intellect: string | undefined;
-  
+    intellect: string | undefined;
+
   @Column()
-  name: string | undefined;
-  
+    name: string | undefined;
+
   @Column()
-  id: string | undefined;
-  
+    userId: string | undefined;
+
   @Column()
-  background: string | undefined;
-  
+    background: string | undefined;
+
   @Column()
-  profession: string | undefined;
-  
+    profession: string | undefined;
+
   @Column()
-  city: string | undefined;
-  
+    city: string | undefined;
+
   @Column()
-  coins: number | undefined;
-  
+    coins: number | undefined;
+
   @Column()
-  healthMin: number | undefined;
-  
+    healthMin: number | undefined;
+
   @Column()
-  healthCurrent: number | undefined;
-  
+    healthCurrent: number | undefined;
+
   @Column()
-  stats: number | undefined;
-  
+    stats: number | undefined;
+
   @Column()
-  outside: boolean | undefined;
-  
+    outside: boolean | undefined;
+
   @Column()
-  object: string | undefined;
-  
+    object: string | undefined;
+
   @Column()
-  coordX: number | undefined;
-  
+    coordX: number | undefined;
+
   @Column()
-  coordY: number | undefined;
-  
+    coordY: number | undefined;
+
   @Column()
-  locationtime: number | undefined;
+    locationtime: number | undefined;
 }
 
 export default Character;
