@@ -2,7 +2,7 @@ import {
   Entity, Column, ObjectIdColumn, ObjectID,
 } from 'typeorm';
 
-@Entity({ name: 'users' })
+@Entity({ name: 'characters' })
 class Character {
   @ObjectIdColumn()
     id: ObjectID | undefined;
