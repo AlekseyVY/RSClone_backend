@@ -26,7 +26,7 @@ export interface ICharacter {
 
 class Character {
   public userId: string;
-  
+
   public id: number;
 
   public strength: string;

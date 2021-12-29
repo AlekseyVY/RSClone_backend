@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import router from '../userRoute/user.router';
-import Character, {ICharacter} from "../../model/Character";
-import {createCharacter, getByUserId} from "./character.memory.repository";
+import Character, { ICharacter } from '../../model/Character';
+import { createCharacter, getByUserId } from './character.memory.repository';
 
 router.route('/saveCharacter').post(async (req: Request, res: Response, next: NextFunction) => {
   try {
