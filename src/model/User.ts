@@ -15,8 +15,8 @@ class User {
 
   constructor({
     id = uuid(),
-    login = 'test',
-    password = 'test',
+    login,
+    password,
   }: IUser) {
     this.id = id;
     this.login = login;
