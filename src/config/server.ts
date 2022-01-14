@@ -32,29 +32,31 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
-    socket.emit('currentPlayers', players);
-    socket.broadcast.emit('newPlayer', players[socket.id]);
-    socket.on('disconnect', () => {
-      delete players[socket.id];
-      io.emit('discon', socket.id);
-    });
-    socket.on('playerMovement', (movementData: any) => {
-      players[socket.id].x = movementData.x;
-      players[socket.id].y = movementData.y;
-      players[socket.id].rotation = movementData.rotation;
-      socket.broadcast.emit('playerMoved', players[socket.id]);
-    });
-    socket.on('enemyInteraction', (enemyData: any) => {
-      zombies.x = enemyData.x;
-      zombies.y = enemyData.y;
-      zombies.rotation = enemyData.rotation;
-      zombies.hp = enemyData.hp;
-      socket.broadcast.emit('enemyInteraction', zombies);
-    });
-    socket.on('firing', (fireData: any) => {
-      players[socket.id].firing = fireData.status;
-      socket.broadcast.emit('firing', players[socket.id]);
-    });
+    setTimeout(() => {
+      socket.emit('currentPlayers', players);
+      socket.broadcast.emit('newPlayer', players[socket.id]);
+      socket.on('disconnect', () => {
+        delete players[socket.id];
+        io.emit('discon', socket.id);
+      });
+      socket.on('playerMovement', (movementData: any) => {
+        players[socket.id].x = movementData.x;
+        players[socket.id].y = movementData.y;
+        players[socket.id].rotation = movementData.rotation;
+        socket.broadcast.emit('playerMoved', players[socket.id]);
+      });
+      socket.on('enemyInteraction', (enemyData: any) => {
+        zombies.x = enemyData.x;
+        zombies.y = enemyData.y;
+        zombies.rotation = enemyData.rotation;
+        zombies.hp = enemyData.hp;
+        socket.broadcast.emit('enemyInteraction', zombies);
+      });
+      socket.on('firing', (fireData: any) => {
+        players[socket.id].firing = fireData.status;
+        socket.broadcast.emit('firing', players[socket.id]);
+      });
+    }, 1000)
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
