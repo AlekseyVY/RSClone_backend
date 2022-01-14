@@ -2,8 +2,15 @@ import { createConnection } from 'typeorm';
 import server, { io } from '../app';
 import User from '../entity/user';
 import Character from '../entity/character';
+import { IPlayer, IZombie } from '../types/socket.types';
 
-const players: any = {};
+const players: {[index: string]: IPlayer} = {};
+const zombies: IZombie = {
+  x: 0,
+  y: 0,
+  rotation: 0,
+  hp: 0,
+};
 
 createConnection({
   type: 'mongodb',
@@ -20,28 +27,33 @@ createConnection({
   io.on('connection', (socket: any) => {
     players[socket.id] = {
       rotation: 0,
-      x: 440,
-      y: 440,
+      x: 225,
+      y: 1355,
       playerId: socket.id,
+      firing: false,
     };
     socket.emit('currentPlayers', players);
-    // update all other players of the new player
     socket.broadcast.emit('newPlayer', players[socket.id]);
-    // console.log('a user connected');
     socket.on('disconnect', () => {
-      // remove this player from our players object
       delete players[socket.id];
-      // emit a message to all players to remove this player
       io.emit('discon', socket.id);
-      // console.log('user disconnected');
     });
-
     socket.on('playerMovement', (movementData: any) => {
       players[socket.id].x = movementData.x;
       players[socket.id].y = movementData.y;
       players[socket.id].rotation = movementData.rotation;
-      // emit a message to all players about the player that moved
       socket.broadcast.emit('playerMoved', players[socket.id]);
+    });
+    socket.on('enemyInteraction', (enemyData: any) => {
+      zombies.x = enemyData.x;
+      zombies.y = enemyData.y;
+      zombies.rotation = enemyData.rotation;
+      zombies.hp = enemyData.hp;
+      socket.broadcast.emit('enemyInteraction', zombies);
+    });
+    socket.on('firing', (fireData: any) => {
+      players[socket.id].firing = fireData.status;
+      socket.broadcast.emit('firing', players[socket.id]);
     });
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
