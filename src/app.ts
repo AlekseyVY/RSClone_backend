@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import { Server } from 'http';
-import { Server as IoServer } from "socket.io";
+import { Server as IoServer } from 'socket.io';
 import userRouter from './routes/userRoute/user.router';
 import 'reflect-metadata';
 import characterRouter from './routes/characterRoute/character.router';
