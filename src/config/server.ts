@@ -2,21 +2,11 @@ import { createConnection } from 'typeorm';
 import server, { io } from '../app';
 import User from '../entity/user';
 import Character from '../entity/character';
-import { IPlayer, IZombie } from '../types/socket.types';
+import { IPlayer } from '../types/socket.types';
 
 const players: {[index: string]: IPlayer} = {};
-const zombies: IZombie = {
-  x: 0,
-  y: 0,
-  rotation: 0,
-};
-interface IEnemy {
-  hp: number
-}
 
-const enemy: IEnemy = {
-  hp: 0,
-};
+
 
 createConnection({
   type: 'mongodb',
@@ -38,38 +28,26 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
+    
     socket.emit('currentPlayers', players);
     socket.broadcast.emit('newPlayer', players[socket.id]);
     socket.on('disconnect', () => {
       delete players[socket.id];
       io.emit('discon', socket.id);
     });
+    
     socket.on('playerMovement', (movementData: any) => {
       players[socket.id].x = movementData.x;
       players[socket.id].y = movementData.y;
       players[socket.id].rotation = movementData.rotation;
       socket.broadcast.emit('playerMoved', players[socket.id]);
     });
-
-    socket.on('enemyInteraction', (enemyData: any) => {
-      zombies.x = enemyData.x;
-      zombies.y = enemyData.y;
-      zombies.rotation = enemyData.rotation;
-    });
-
-    socket.on('enemyHp', (value: any) => {
-      enemy.hp = value.value;
-      socket.broadcast.emit('enemyHp', enemy.hp);
-    });
-
+    
     socket.on('firing', (fireData: any) => {
       players[socket.id].firing = fireData.status;
       socket.broadcast.emit('firing', players[socket.id]);
     });
-    setTimeout(() => {
-      socket.broadcast.emit('enemyInteraction', zombies);
-      socket.emit('enemyInteraction', zombies);
-    }, 1000);
+    
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
