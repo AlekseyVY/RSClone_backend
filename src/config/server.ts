@@ -11,7 +11,6 @@ const zombies: IZombie = {
   rotation: 0,
 };
 
-
 createConnection({
   type: 'mongodb',
   url: process.env.DB_URI,
@@ -24,6 +23,7 @@ createConnection({
     User, Character,
   ],
 }).then(async () => {
+  let hp = 0;
   io.on('connection', (socket: any) => {
     players[socket.id] = {
       rotation: 0,
@@ -32,7 +32,6 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
-    let hp = 150;
     socket.emit('currentPlayers', players);
     socket.broadcast.emit('newPlayer', players[socket.id]);
     socket.on('disconnect', () => {
