@@ -32,7 +32,6 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
-    setTimeout(() => {
       socket.emit('currentPlayers', players);
       socket.broadcast.emit('newPlayer', players[socket.id]);
       socket.on('disconnect', () => {
@@ -56,7 +55,6 @@ createConnection({
         players[socket.id].firing = fireData.status;
         socket.broadcast.emit('firing', players[socket.id]);
       });
-    }, 1000)
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
