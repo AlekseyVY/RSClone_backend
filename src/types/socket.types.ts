@@ -5,9 +5,3 @@ export interface IPlayer {
   playerId: string,
   firing: boolean
 }
-
-export interface IZombie {
-  x: number,
-  y: number,
-  rotation: number,
-}
