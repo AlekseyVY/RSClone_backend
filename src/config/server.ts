@@ -11,7 +11,6 @@ const zombies: IZombie = {
   rotation: 0,
 };
 
-let hp = 150;
 
 createConnection({
   type: 'mongodb',
@@ -33,6 +32,7 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
+    let hp = 150;
     socket.emit('currentPlayers', players);
     socket.broadcast.emit('newPlayer', players[socket.id]);
     socket.on('disconnect', () => {
@@ -54,8 +54,6 @@ createConnection({
 
     socket.on('enemyHp', (value: any) => {
       hp = value.value;
-      socket.broadcast.emit('enemyHp', hp);
-      socket.emit('enemyHp', hp);
     });
 
     socket.on('firing', (fireData: any) => {
@@ -65,6 +63,7 @@ createConnection({
     setTimeout(() => {
       socket.broadcast.emit('enemyInteraction', zombies);
       socket.emit('enemyInteraction', zombies);
+      socket.broadcast.emit('enemyHp', hp);
     }, 10);
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
