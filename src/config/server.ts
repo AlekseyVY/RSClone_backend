@@ -64,6 +64,7 @@ createConnection({
       socket.broadcast.emit('enemyInteraction', zombies);
       socket.emit('enemyInteraction', zombies);
       socket.broadcast.emit('enemyHp', hp);
+      socket.emit('enemyHp', hp);
     }, 10);
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
