@@ -9,8 +9,9 @@ const zombies: IZombie = {
   x: 0,
   y: 0,
   rotation: 0,
-  hp: 0,
 };
+
+let hp = 150;
 
 createConnection({
   type: 'mongodb',
@@ -32,29 +33,39 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
-      socket.emit('currentPlayers', players);
-      socket.broadcast.emit('newPlayer', players[socket.id]);
-      socket.on('disconnect', () => {
-        delete players[socket.id];
-        io.emit('discon', socket.id);
-      });
-      socket.on('playerMovement', (movementData: any) => {
-        players[socket.id].x = movementData.x;
-        players[socket.id].y = movementData.y;
-        players[socket.id].rotation = movementData.rotation;
-        socket.broadcast.emit('playerMoved', players[socket.id]);
-      });
-      socket.on('enemyInteraction', (enemyData: any) => {
-        zombies.x = enemyData.x;
-        zombies.y = enemyData.y;
-        zombies.rotation = enemyData.rotation;
-        zombies.hp = enemyData.hp;
-        socket.broadcast.emit('enemyInteraction', zombies);
-      });
-      socket.on('firing', (fireData: any) => {
-        players[socket.id].firing = fireData.status;
-        socket.broadcast.emit('firing', players[socket.id]);
-      });
+    socket.emit('currentPlayers', players);
+    socket.broadcast.emit('newPlayer', players[socket.id]);
+    socket.on('disconnect', () => {
+      delete players[socket.id];
+      io.emit('discon', socket.id);
+    });
+    socket.on('playerMovement', (movementData: any) => {
+      players[socket.id].x = movementData.x;
+      players[socket.id].y = movementData.y;
+      players[socket.id].rotation = movementData.rotation;
+      socket.broadcast.emit('playerMoved', players[socket.id]);
+    });
+    
+  
+    socket.on('enemyInteraction', (enemyData: any) => {
+      zombies.x = enemyData.x;
+      zombies.y = enemyData.y;
+      zombies.rotation = enemyData.rotation;
+    });
+  
+    socket.on('enemyHp', (value: any) => {
+      hp = value.value;
+      socket.broadcast.emit('enemyHp', hp);
+    });
+
+    socket.on('firing', (fireData: any) => {
+      players[socket.id].firing = fireData.status;
+      socket.broadcast.emit('firing', players[socket.id]);
+    });
+    setTimeout(() => {
+      socket.broadcast.emit('enemyInteraction', zombies);
+      socket.emit('enemyInteraction', zombies);
+    }, 10)
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
