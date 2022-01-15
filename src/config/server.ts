@@ -69,7 +69,7 @@ createConnection({
     setTimeout(() => {
       socket.broadcast.emit('enemyInteraction', zombies);
       socket.emit('enemyInteraction', zombies);
-    }, 10);
+    }, 1000);
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
