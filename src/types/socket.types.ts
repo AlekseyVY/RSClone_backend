@@ -10,5 +10,4 @@ export interface IZombie {
   x: number,
   y: number,
   rotation: number,
-  hp: number
 }
