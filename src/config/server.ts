@@ -15,7 +15,7 @@ interface IEnemy {
 }
 
 const enemy: IEnemy = {
-  hp: 0
+  hp: 0,
 };
 
 createConnection({
@@ -59,6 +59,7 @@ createConnection({
 
     socket.on('enemyHp', (value: any) => {
       enemy.hp = value.value;
+      socket.broadcast.emit('enemyHp', enemy.hp);
     });
 
     socket.on('firing', (fireData: any) => {
@@ -68,8 +69,6 @@ createConnection({
     setTimeout(() => {
       socket.broadcast.emit('enemyInteraction', zombies);
       socket.emit('enemyInteraction', zombies);
-      socket.broadcast.emit('enemyHp', enemy.hp);
-      socket.emit('enemyHp', enemy.hp);
     }, 10);
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
