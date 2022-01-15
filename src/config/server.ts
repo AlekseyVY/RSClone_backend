@@ -45,17 +45,15 @@ createConnection({
       players[socket.id].rotation = movementData.rotation;
       socket.broadcast.emit('playerMoved', players[socket.id]);
     });
-    
-  
+
     socket.on('enemyInteraction', (enemyData: any) => {
       zombies.x = enemyData.x;
       zombies.y = enemyData.y;
       zombies.rotation = enemyData.rotation;
     });
-  
+
     socket.on('enemyHp', (value: any) => {
       hp = value.value;
-      socket.broadcast.emit('enemyHp', hp);
     });
 
     socket.on('firing', (fireData: any) => {
@@ -65,7 +63,8 @@ createConnection({
     setTimeout(() => {
       socket.broadcast.emit('enemyInteraction', zombies);
       socket.emit('enemyInteraction', zombies);
-    }, 10)
+      socket.broadcast.emit('enemyHp', hp);
+    }, 10);
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
