@@ -6,7 +6,12 @@ import { IPlayer } from '../types/socket.types';
 
 const players: {[index: string]: IPlayer} = {};
 
+interface IHp {
+  hp: number
+  playerId: string
+}
 
+const hp: {[index: string]: IHp} = {};
 
 createConnection({
   type: 'mongodb',
@@ -28,26 +33,33 @@ createConnection({
       playerId: socket.id,
       firing: false,
     };
-    
+    hp[socket.id] = {
+      hp: 150, playerId: socket.id
+    }
+
     socket.emit('currentPlayers', players);
     socket.broadcast.emit('newPlayer', players[socket.id]);
     socket.on('disconnect', () => {
       delete players[socket.id];
       io.emit('discon', socket.id);
     });
-    
+
     socket.on('playerMovement', (movementData: any) => {
       players[socket.id].x = movementData.x;
       players[socket.id].y = movementData.y;
       players[socket.id].rotation = movementData.rotation;
       socket.broadcast.emit('playerMoved', players[socket.id]);
     });
-    
+  
+    socket.on('damaged', (hpData: any) => {
+      hp[socket.id].hp = hpData.hp
+      socket.broadcast.emit('damaged', hp[socket.id]);
+    });
+
     socket.on('firing', (fireData: any) => {
       players[socket.id].firing = fireData.status;
       socket.broadcast.emit('firing', players[socket.id]);
     });
-    
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
