@@ -2,9 +2,9 @@ import { createConnection } from 'typeorm';
 import server, { io } from '../app';
 import User from '../entity/user';
 import Character from '../entity/character';
-import {hp, IHp, IPlayer, players} from '../types/socket.types';
-
-
+import {
+  hp, IHp, IPlayer, players,
+} from '../types/socket.types';
 
 createConnection({
   type: 'mongodb',
@@ -27,7 +27,7 @@ createConnection({
       firing: false,
     };
     hp[socket.id] = {
-      hp: 100, playerId: socket.id, id: socket.id
+      hp: 100, playerId: socket.id, id: socket.id,
     };
 
     socket.emit('currentPlayers', players);
@@ -48,6 +48,7 @@ createConnection({
       hp[socket.id].hp = hpData.hp;
       hp[socket.id].id = hpData.id;
       socket.broadcast.emit('damaged', hp[socket.id]);
+      if(hp[socket.id].hp <= 0) hp[socket.id].hp = 100;
     });
 
     socket.on('firing', (fireData: { status: boolean }) => {
