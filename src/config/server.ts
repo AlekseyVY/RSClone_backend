@@ -48,13 +48,18 @@ createConnection({
       hp[socket.id].hp = hpData.hp;
       hp[socket.id].id = hpData.id;
       socket.broadcast.emit('damaged', hp[socket.id]);
-      if(hp[socket.id].hp <= 0) hp[socket.id].hp = 100;
+      if (hp[socket.id].hp <= 0) hp[socket.id].hp = 100;
     });
 
     socket.on('firing', (fireData: { status: boolean }) => {
       players[socket.id].firing = fireData.status;
       socket.broadcast.emit('firing', players[socket.id]);
     });
+    
+    socket.on('bulletEvent', (bulletData: {id: string,  x: number, y : number, rotation: number}) => {
+      socket.broadcast.emit('bulletEvent', bulletData);
+    })
+    
   });
   server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
