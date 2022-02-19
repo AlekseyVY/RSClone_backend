@@ -18,7 +18,7 @@ router.route('/authService').post(async (req: Request, res: Response, next: Next
       res.send({
         status: 'logged',
         userId: serviceStatus.id,
-        token: token,
+        token,
         message: 'Successfully logged in',
       });
     } else if (!serviceStatus) {
@@ -33,7 +33,7 @@ router.route('/authService').post(async (req: Request, res: Response, next: Next
       res.send({
         status: 'authenticated',
         userId: user.id,
-        token: token,
+        token,
         message: 'Successfully Authenticated',
       });
     } else {
