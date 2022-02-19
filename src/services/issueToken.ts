@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const issueToken = (username: string): string => {
+const issueToken = (username: string) => {
   const secret = process.env.SECRET;
-  const token = secret && jwt.sign({ username }, secret);
-  return token || 'NOT_WORKING';
+  return secret && jwt.sign({ username }, secret, { expiresIn: '24h' });
 };
 
 export default issueToken;
