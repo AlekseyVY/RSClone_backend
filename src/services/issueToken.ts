@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 const issueToken = (username: string): string => {
   const secret = process.env.SECRET;
