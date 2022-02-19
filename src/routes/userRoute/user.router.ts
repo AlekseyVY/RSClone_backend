@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User, { IUser } from '../../model/User';
 import { createUser, getByLogin } from './user.memory.repository';
+import issueToken from '../../services/issueToken';
 
 const uuid = require('uuid').v4;
 const router = require('express').Router();
@@ -12,11 +13,12 @@ router.route('/authService').post(async (req: Request, res: Response, next: Next
       res.status(400).send({ status: 'Error', token: '', message: 'All inputs required' });
     }
     const serviceStatus = await getByLogin(req.body.login);
+    const token = issueToken(req.body.login);
     if (serviceStatus && await bcrypt.compare(req.body.password, <string>serviceStatus.password)) {
       res.send({
         status: 'logged',
         userId: serviceStatus.id,
-        token: `${serviceStatus.login}_isAuth`,
+        token,
         message: 'Successfully logged in',
       });
     } else if (!serviceStatus) {
@@ -31,7 +33,7 @@ router.route('/authService').post(async (req: Request, res: Response, next: Next
       res.send({
         status: 'authenticated',
         userId: user.id,
-        token: `${user.login}_isAuth`,
+        token,
         message: 'Successfully Authenticated',
       });
     } else {
