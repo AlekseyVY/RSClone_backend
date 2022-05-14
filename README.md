@@ -1,2 +1,2 @@
 # RSClone_backend
-Backend for RSClone team project.
+source code in development branch.
