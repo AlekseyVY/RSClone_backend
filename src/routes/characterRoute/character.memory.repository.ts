@@ -7,7 +7,12 @@ export const createCharacter = async (user: ICharacter) => {
   await characterRepository.save(user);
 };
 
-export const getByUserId = async (userId: string): Promise<Character | undefined> => {
+export const getByUserId = async (userId: string): Promise<Character | null> => {
   const characterRepository = getMongoRepository(Character);
-  return characterRepository.findOne(userId);
+  return characterRepository.findOne({
+    where: {
+      id: userId,
+    },
+  });
 };
+
