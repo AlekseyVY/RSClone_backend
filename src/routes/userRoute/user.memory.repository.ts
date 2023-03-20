@@ -7,7 +7,10 @@ export const createUser = async (user: IUser) => {
   await userRepository.save(user);
 };
 
-export const getByLogin = async (userLogin: string): Promise<User | undefined> => {
+export const getByLogin = async (userLogin: string): Promise<User | null> => {
   const userRepository = getMongoRepository(User);
-  return userRepository.findOne({ login: userLogin });
+  return userRepository.findOne({
+    where: { login: userLogin },
+  });
 };
+
