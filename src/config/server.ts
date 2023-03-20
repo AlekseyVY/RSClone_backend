@@ -2,21 +2,18 @@ import { createConnection } from 'typeorm';
 import server, { io } from '../app';
 import User from '../entity/user';
 import Character from '../entity/character';
-import {
-  hp, IHp, IPlayer, players,
-} from '../types/socket.types';
+import { hp, IHp, IPlayer, players } from '../types/socket.types';
 
 createConnection({
   type: 'mongodb',
   url: process.env.DB_URI,
   synchronize: true,
   logging: true,
+  port: +(process.env.PORT || 5000),
   useNewUrlParser: true,
   useUnifiedTopology: true,
   database: process.env.DB_NAME,
-  entities: [
-    User, Character,
-  ],
+  entities: [User, Character],
 }).then(async () => {
   io.on('connection', (socket) => {
     players[socket.id] = {
@@ -27,7 +24,9 @@ createConnection({
       firing: false,
     };
     hp[socket.id] = {
-      hp: 100, playerId: socket.id, id: socket.id,
+      hp: 100,
+      playerId: socket.id,
+      id: socket.id,
     };
 
     socket.emit('currentPlayers', players);
@@ -56,9 +55,15 @@ createConnection({
       socket.broadcast.emit('firing', players[socket.id]);
     });
 
-    socket.on('bulletEvent', (bulletData: {id: string, x: number, y : number, rotation: number}) => {
-      socket.broadcast.emit('bulletEvent', bulletData);
-    });
+    socket.on(
+      'bulletEvent',
+      (bulletData: { id: string; x: number; y: number; rotation: number }) => {
+        socket.broadcast.emit('bulletEvent', bulletData);
+      },
+    );
   });
-  server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
+  server.listen(process.env.PORT || 5000, () =>
+    process.stdout.write(`App is running on http://localhost:${process.env.PORT}`),
+  );
 });
+
