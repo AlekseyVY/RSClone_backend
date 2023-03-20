@@ -1,20 +1,22 @@
-import { createConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import server, { io } from '../app';
 import User from '../entity/user';
 import Character from '../entity/character';
-import { hp, IHp, IPlayer, players } from '../types/socket.types';
+import {
+  hp, IHp, IPlayer, players,
+} from '../types/socket.types';
 
-createConnection({
+const connection = new DataSource({
   type: 'mongodb',
   url: process.env.DB_URI,
   synchronize: true,
   logging: true,
-  port: +(process.env.PORT || 5000),
   useNewUrlParser: true,
   useUnifiedTopology: true,
   database: process.env.DB_NAME,
   entities: [User, Character],
-}).then(async () => {
+});
+connection.initialize().then(async () => {
   io.on('connection', (socket) => {
     players[socket.id] = {
       rotation: 0,
@@ -62,8 +64,7 @@ createConnection({
       },
     );
   });
-  server.listen(process.env.PORT || 5000, () =>
-    process.stdout.write(`App is running on http://localhost:${process.env.PORT}`),
-  );
+  server.listen(process.env.PORT || 5000, () => process.stdout.write(`App is running on http://localhost:${process.env.PORT}`));
 });
 
+export default connection;
